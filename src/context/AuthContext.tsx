@@ -1,11 +1,14 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import type { AuthUser } from "../types";
+import type { AuthUser, UserProfile } from "../types";
 import { authClient } from "../lib/auth";
+import { api } from "../lib/api";
 
 interface AuthContextType {
     user: AuthUser | null;
     isLoading: boolean;
-
+    saveProfile: (
+        profile: Omit<UserProfile, "userId" | "updatedAt">,
+    ) => Promise<void>;
 }
 
 
@@ -35,9 +38,18 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         loadUsers()
     }, [])
 
+    async function saveProfile(
+        profileData: Omit<UserProfile, "userId" | "updatedAt">,
+    ) {
+        console.log(profileData);
+        if (!neonUser) {
+            throw new Error("No user logged in");
+        }
+        await api.saveProfile(neonUser.id, profileData);
+    }
 
     return (
-        <AuthContext.Provider value={{ user: neonUser, isLoading }}>
+        <AuthContext.Provider value={{ user: neonUser, isLoading, saveProfile }}>
             {children}
         </AuthContext.Provider>
     )

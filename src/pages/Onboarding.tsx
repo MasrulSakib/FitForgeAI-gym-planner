@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Textarea } from "../ui/Textarea";
 import { Button } from "../ui/Button";
+import type { UserProfile } from "../types";
 
 const goalOptions = [
     { value: "bulk", label: "Build Muscle (Bulk)" },
@@ -51,7 +52,7 @@ const splitOptions = [
 
 export default function Onboarding() {
 
-    const { user } = useAuth();
+    const { user, saveProfile } = useAuth();
 
     const [formData, setFormData] = useState({
         goal: "bulk",
@@ -70,29 +71,21 @@ export default function Onboarding() {
     async function handleQuestionnaire(e: React.SubmitEvent) {
         e.preventDefault();
 
-        // const profile: Omit<UserProfile, "userId" | "updatedAt"> = {
-        //     goal: formData.goal as UserProfile["goal"],
-        //     experience: formData.experience as UserProfile["experience"],
-        //     daysPerWeek: parseInt(formData.daysPerWeek),
-        //     sessionLength: parseInt(formData.sessionLength),
-        //     equipment: formData.equipment as UserProfile["equipment"],
-        //     injuries: formData.injuries || undefined,
-        //     preferredSplit: formData.preferredSplit as UserProfile["preferredSplit"],
-        // };
-        // try {
-        //     await saveProfile(profile);
-        //     setIsGenerating(true);
-        //     await generatePlan();
-        //     Navigate("/profile");
-        // } catch (err) {
-        //     setError(err instanceof Error ? err.message : "Failed to save profile");
-        // } finally {
-        //     setIsGenerating(false);
-        // }
+        const profile: Omit<UserProfile, "userId" | "updatedAt"> = {
+            goal: formData.goal as UserProfile["goal"],
+            experience: formData.experience as UserProfile["experience"],
+            daysPerWeek: parseInt(formData.daysPerWeek),
+            sessionLength: parseInt(formData.sessionLength),
+            equipment: formData.equipment as UserProfile["equipment"],
+            injuries: formData.injuries || undefined,
+            preferredSplit: formData.preferredSplit as UserProfile["preferredSplit"],
+        };
+        await saveProfile(profile);
     }
     if (!user) {
         return <RedirectToSignIn />
     }
+    return (
     <SignedIn>
         <div className="min-h-screen pt-24 pb-12 px-6">
             <div className="max-w-xl mx-auto">
@@ -173,4 +166,5 @@ export default function Onboarding() {
             </div>
         </div>
     </SignedIn>
+    );
 }
