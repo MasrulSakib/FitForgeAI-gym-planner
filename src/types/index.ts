@@ -4,6 +4,16 @@ export interface User {
   createdAt: string;
 }
 
+export interface AuthUser {
+  id: string;
+  email: string;
+  emailVerified: boolean;
+  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+  image?: string | null;
+}
+
 export interface UserProfile {
   userId: string;
   goal: "cut" | "bulk" | "recomp" | "strength" | "endurance";

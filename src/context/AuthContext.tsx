@@ -1,18 +1,19 @@
-import { createContext, use, useContext, useEffect, useState, type ReactNode } from "react";
-import type { User } from "../types";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import type { AuthUser } from "../types";
 import { authClient } from "../lib/auth";
 
 interface AuthContextType {
-    user: User | null;
+    user: AuthUser | null;
     isLoading: boolean;
+
 }
 
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
-    const [neonUser, setNeonUser] = useState<any>(null);
-    const [isloading, setIsLoading] = useState(true);
+    const [neonUser, setNeonUser] = useState<AuthUser | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         async function loadUsers() {
@@ -36,7 +37,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
 
     return (
-        <AuthContext.Provider value={{ user: neonUser, isloading }}>
+        <AuthContext.Provider value={{ user: neonUser, isLoading }}>
             {children}
         </AuthContext.Provider>
     )
