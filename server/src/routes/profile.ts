@@ -1,4 +1,4 @@
-import { type Request, type Response, Router } from "express";
+import { Router, type Request, type Response } from "express";
 import { prisma } from "../lib/prisma";
 
 export const profileRouter = Router();
@@ -31,7 +31,8 @@ profileRouter.post("/", async (req: Request, res: Response) => {
     ) {
       return res.status(400).json({ error: "Missing required fields" });
     }
-    await prisma.user_profiles.upsert({
+
+    await prisma.user_profile.upsert({
       where: { user_id: userId },
       update: {
         goal,
@@ -57,7 +58,7 @@ profileRouter.post("/", async (req: Request, res: Response) => {
 
     res.json({ success: true });
   } catch (error) {
-    console.error("Error updating profile:", error);
-    res.status(500).json({ error: "Failed to update profile" });
+    console.error("Error saving profile:", error);
+    res.status(500).json({ error: "Failed to save profile" });
   }
 });

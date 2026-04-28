@@ -24,6 +24,7 @@ async function get(path: string) {
     );
   return res.json();
 }
+
 export const api = {
   saveProfile: (
     userId: string,
