@@ -13,6 +13,7 @@ import { Card } from "../ui/Card";
 import { PlanDisplay } from "../components/layout/plan/PlanDisplay";
 
 
+
 export default function Profile() {
     const { user, isLoading, plan, generatePlan } = useAuth();
 
@@ -35,8 +36,9 @@ export default function Profile() {
     }
 
     return (
-        <div className="min-h-screen pt-24 pb-12 px-6">
-            <div className="max-w-4xl mx-auto">
+        <div className="relative min-h-screen pt-24 pb-12 px-6">
+
+            <div className="relative max-w-4xl mx-auto">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                     <div>
                         <h1 className="text-3xl font-bold mb-1">Your Training Plan</h1>

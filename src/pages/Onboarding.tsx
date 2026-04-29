@@ -10,6 +10,7 @@ import type { UserProfile } from "../types";
 import { useNavigate } from "react-router";
 
 
+
 const goalOptions = [
     { value: "bulk", label: "Build Muscle (Bulk)" },
     { value: "cut", label: "Lose Fat (Cut)" },
@@ -102,8 +103,9 @@ export default function Onboarding() {
     }
     return (
         <SignedIn>
-            <div className="min-h-screen pt-24 pb-12 px-6">
-                <div className="max-w-xl mx-auto">
+            <div className="relative min-h-screen pt-24 pb-12 px-6">
+
+                <div className="relative max-w-xl mx-auto">
                     {/* Step 1: Questionnaire */}
 
                     {!isGenerating ? <Card variant="bordered">

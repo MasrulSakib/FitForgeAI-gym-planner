@@ -1,8 +1,8 @@
-import { Dumbbell } from "lucide-react";
 import { Link } from "react-router-dom";
 import { UserButton } from "@neondatabase/neon-js/auth/react";
 import { Button } from "../../ui/Button";
 import { useAuth } from "../../context/AuthContext";
+import Logo from "../Logo";
 
 
 export default function Navbar() {
@@ -12,13 +12,15 @@ export default function Navbar() {
             <div className="max-w-full mx-auto px-6 h-16 flex items-center justify-between">
                 <Link
                     to="/"
-                    className="flex items-center gap-2 text-foreground"
+                    className="flex items-center gap-2.5 text-foreground hover:opacity-90 transition-opacity"
                 >
-                    <Dumbbell className="w-6 h-6 text-accent" />
-                    <span className="font-semibold text-lg">GymAI</span>
+                    <Logo size={28} />
+                    <span className="font-bold text-lg tracking-tight">
+                        Fit<span className="text-[var(--color-accent)]">Forge</span>
+                    </span>
                 </Link>
 
-                <nav>
+                <nav className="flex items-center gap-2">
                     {user ? (
                         <>
                             <Link to="/profile">

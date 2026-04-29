@@ -11,13 +11,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref,
     ) => {
         const baseStyles =
-            "inline-flex items-center justify-center font-medium transition-colors rounded-xl disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer";
+            "inline-flex items-center justify-center font-medium transition-all duration-200 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer";
 
         const variants = {
             primary:
-                "bg-[var(--color-accent)] text-black hover:bg-[var(--color-accent-hover)]",
+                "bg-gradient-to-r from-[var(--color-accent)] to-[#6d28d9] text-white shadow-[0_0_0_0_var(--color-accent-glow)] hover:shadow-[0_0_24px_4px_var(--color-accent-glow)] hover:brightness-110",
             secondary:
-                "bg-[var(--color-card)] text-[var(--color-foreground)] border border-[var(--color-border)] hover:bg-[var(--color-border)]",
+                "bg-[var(--color-card)]/80 text-[var(--color-foreground)] border border-[var(--color-border)] hover:border-[var(--color-accent)]/50 hover:bg-[var(--color-card-hover)] backdrop-blur-sm",
             ghost:
                 "text-[var(--color-muted)] hover:text-[var(--color-foreground)] hover:bg-[var(--color-card)]",
         };
