@@ -1,73 +1,147 @@
-# React + TypeScript + Vite
+# FitForge AI 🏋️‍♂️🤖
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+FitForge AI is a state-of-the-art, AI-powered gym planner designed to help you achieve your fitness goals with precision. Built using the **PERN stack**, it leverages artificial intelligence to generate personalized, periodized training plans based on your unique profile, experience, and available equipment.
 
-Currently, two official plugins are available:
+[![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)](https://www.prisma.io/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **AI-Driven Personalization**: Generate custom workout plans using advanced AI models.
+- **Dynamic Onboarding**: Tailor your experience by providing goals, experience level, equipment, and more.
+- **Progress Tracking**: Store and manage multiple training plans.
+- **Premium UI/UX**: Modern, responsive design built with Tailwind CSS 4 and DaisyUI.
+- **Secure Authentication**: Integrated with Neon Auth for seamless user management.
+- **Periodized Plans**: Smart generation of sets, reps, and exercises optimized for your specific goals.
 
-## Expanding the ESLint configuration
+## 🚀 Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Frontend
+- **Framework**: [React 19](https://react.dev/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/) & [DaisyUI](https://daisyui.com/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Routing**: [React Router 7](https://reactrouter.com/)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Backend
+- **Runtime**: [Node.js](https://nodejs.org/)
+- **Framework**: [Express](https://expressjs.com/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Database ORM**: [Prisma](https://www.prisma.io/)
+- **AI Integration**: [OpenRouter API](https://openrouter.ai/) (OpenAI compatible)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Database & Auth
+- **Database**: [PostgreSQL (Neon)](https://neon.tech/)
+- **Authentication**: [Neon Auth](https://neon.tech/docs/guides/auth-neon-auth)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 🛠️ Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+- A PostgreSQL database (Neon recommended)
+- OpenRouter API Key
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/MasrulSakib/GymAI-planner.git
+   cd react-gym-ai-planner
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   # Install root and frontend dependencies
+   npm install
+
+   # Install server dependencies
+   cd server
+   npm install
+   cd ..
+   ```
+
+3. **Environment Setup:**
+   Create a `.env` file in the root and `server` directories based on the configuration below.
+
+4. **Database Migration:**
+   ```bash
+   cd server
+   npx prisma generate
+   # npx prisma db push (to sync schema with database)
+   cd ..
+   ```
+
+5. **Run the application:**
+   ```bash
+   # In root (Frontend)
+   npm run dev
+
+   # In /server (Backend)
+   npm run dev:server
+   ```
+
+---
+
+## ⚙️ Environment Variables
+
+### Root `.env` (Frontend)
+```env
+VITE_API_URL=http://localhost:3001
+VITE_NEON_AUTH_URL=your_neon_auth_url
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Server `.env` (Backend)
+```env
+PORT=3001
+BASE_URL=http://localhost:3001
+DATABASE_URL=your_postgresql_connection_string
+OPEN_ROUTER_KEY=your_openrouter_api_key
+CLIENT_URL=http://localhost:5173
 ```
+
+---
+
+## 📂 Project Structure
+
+```text
+├── src/                # Frontend source code
+│   ├── components/     # UI Components
+│   ├── pages/          # Application pages
+│   ├── lib/            # Shared utilities
+│   └── main.tsx        # Frontend entry point
+├── server/             # Backend source code
+│   ├── src/
+│   │   ├── routes/     # API routes
+│   │   ├── lib/        # Backend logic (AI, Prisma)
+│   │   └── index.ts    # Server entry point
+│   └── prisma/         # Database schema
+└── public/             # Static assets
+```
+
+---
+
+## 🌐 Deployment
+
+The project is configured for deployment on **Vercel**. 
+- Frontend is deployed as a static site.
+- Backend is deployed as Vercel Functions (Serverless).
+
+To deploy your own version, simply connect your repository to Vercel and ensure all environment variables are correctly configured in the Vercel dashboard.
+
+---
+
+## 📄 License
+
+This project is licensed under the ISC License.
+
+---
+
+<p align="center">Made with ❤️ for Fitness Enthusiasts</p>
