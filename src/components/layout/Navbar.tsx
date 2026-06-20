@@ -6,7 +6,7 @@ import Logo from "../Logo";
 
 
 export default function Navbar() {
-    const { user } = useAuth();
+    const { user, plan } = useAuth();
     return (
         <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
             <div className="max-w-full mx-auto px-6 h-16 flex items-center justify-between">
@@ -23,11 +23,26 @@ export default function Navbar() {
                 <nav className="flex items-center gap-2">
                     {user ? (
                         <>
-                            <Link to="/profile">
-                                <Button variant="ghost" size="sm">
-                                    My Plan
-                                </Button>
-                            </Link>
+                            {plan ? (
+                                <>
+                                    <Link to="/profile">
+                                        <Button variant="ghost" size="sm">
+                                            My Plan
+                                        </Button>
+                                    </Link>
+                                    <Link to="/onboarding">
+                                        <Button variant="ghost" size="sm">
+                                            Change Plan
+                                        </Button>
+                                    </Link>
+                                </>
+                            ) : (
+                                <Link to="/onboarding">
+                                    <Button variant="ghost" size="sm">
+                                        Create Plan
+                                    </Button>
+                                </Link>
+                            )}
                             <UserButton className="bg-accent/60" />
                         </>
                     ) : (

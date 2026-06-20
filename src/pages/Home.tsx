@@ -1,4 +1,4 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
     Zap,
     Target,
@@ -11,8 +11,74 @@ import {
     Dumbbell,
     ChevronRight,
     Star,
-    Shield,
 } from "lucide-react";
+
+function InstagramIcon({ className }: { className?: string }) {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={className}
+        >
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+        </svg>
+    );
+}
+
+function TwitterIcon({ className }: { className?: string }) {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={className}
+        >
+            <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+        </svg>
+    );
+}
+
+function YoutubeIcon({ className }: { className?: string }) {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={className}
+        >
+            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z" />
+            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
+        </svg>
+    );
+}
+
+function GithubIcon({ className }: { className?: string }) {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={className}
+        >
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+        </svg>
+    );
+}
 
 import { useAuth } from "../context/AuthContext";
 import { Button } from "../ui/Button";
@@ -76,12 +142,8 @@ const stats = [
 ];
 
 export default function Home() {
-    const { user, isLoading } = useAuth();
+    const { user, isLoading, plan } = useAuth();
 
-    // Redirect authenticated users to profile
-    if (!isLoading && user) {
-        return <Navigate to="/profile" replace />;
-    }
     return (
         <div className="min-h-screen overflow-hidden">
             {/* ─── Hero Section ─── */}
@@ -131,17 +193,46 @@ export default function Home() {
 
                     {/* CTA Buttons */}
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link to="/auth/sign-up">
-                            <Button size="lg" className="gap-2 w-full sm:w-auto">
-                                Get Started Free
-                                <ArrowRight className="w-5 h-5" />
-                            </Button>
-                        </Link>
-                        <Link to="/auth/sign-in">
-                            <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                                Sign In
-                            </Button>
-                        </Link>
+                        {isLoading ? (
+                            <div className="h-12 w-40 bg-card border border-border animate-pulse rounded-lg" />
+                        ) : user ? (
+                            plan ? (
+                                <>
+                                    <Link to="/profile">
+                                        <Button size="lg" className="gap-2 w-full sm:w-auto">
+                                            My Plan
+                                            <ArrowRight className="w-5 h-5" />
+                                        </Button>
+                                    </Link>
+                                    <Link to="/onboarding">
+                                        <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+                                            Change Plan
+                                        </Button>
+                                    </Link>
+                                </>
+                            ) : (
+                                <Link to="/onboarding">
+                                    <Button size="lg" className="gap-2 w-full sm:w-auto">
+                                        Create Plan
+                                        <ArrowRight className="w-5 h-5" />
+                                    </Button>
+                                </Link>
+                            )
+                        ) : (
+                            <>
+                                <Link to="/auth/sign-up">
+                                    <Button size="lg" className="gap-2 w-full sm:w-auto">
+                                        Get Started Free
+                                        <ArrowRight className="w-5 h-5" />
+                                    </Button>
+                                </Link>
+                                <Link to="/auth/sign-in">
+                                    <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+                                        Sign In
+                                    </Button>
+                                </Link>
+                            </>
+                        )}
                     </div>
                 </div>
             </section>
@@ -281,35 +372,68 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* ─── Final CTA ─── */}
+            {/* ─── Follow Us Section ─── */}
             <section className="py-24 px-6 relative">
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[var(--color-accent)]/8 rounded-full blur-[100px]" />
                 </div>
 
-                <div className="relative max-w-3xl mx-auto text-center">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[var(--color-accent)]/20 to-[var(--color-accent-secondary)]/10 border border-[var(--color-accent)]/20 flex items-center justify-center mx-auto mb-8">
-                        <Shield className="w-8 h-8 text-[var(--color-accent)]" />
-                    </div>
-
+                <div className="relative max-w-4xl mx-auto text-center">
                     <h2 className="text-3xl md:text-5xl font-bold mb-4">
-                        Ready to{" "}
+                        Connect With{" "}
                         <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-secondary)] bg-clip-text text-transparent">
-                            Transform
+                            Our Community
                         </span>
-                        ?
                     </h2>
-                    <p className="text-[var(--color-muted)] text-lg mb-8 max-w-xl mx-auto">
-                        Join thousands who've already upgraded their training. Your
-                        AI-powered plan is one click away.
+                    <p className="text-[var(--color-muted)] text-lg mb-12 max-w-xl mx-auto">
+                        Follow us on social media for training tips, updates, and daily motivation to push your limits.
                     </p>
 
-                    <Link to="/auth/sign-up">
-                        <Button size="lg" className="gap-2">
-                            Start Your Free Plan
-                            <ArrowRight className="w-5 h-5" />
-                        </Button>
-                    </Link>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+                        <a
+                            href="https://instagram.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group flex flex-col items-center justify-center p-6 rounded-2xl bg-[var(--color-card)]/50 border border-[var(--color-border)] hover:border-[#e1306c]/40 hover:shadow-[0_0_20px_rgba(225,48,108,0.15)] transition-all duration-300 backdrop-blur-sm"
+                        >
+                            <InstagramIcon className="w-8 h-8 text-[var(--color-muted)] group-hover:text-[#e1306c] transition-colors duration-300 mb-3" />
+                            <span className="font-semibold text-sm">Instagram</span>
+                            <span className="text-xs text-[var(--color-muted)] mt-1">@fitforge</span>
+                        </a>
+
+                        <a
+                            href="https://twitter.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group flex flex-col items-center justify-center p-6 rounded-2xl bg-[var(--color-card)]/50 border border-[var(--color-border)] hover:border-[#1da1f2]/40 hover:shadow-[0_0_20px_rgba(29,161,242,0.15)] transition-all duration-300 backdrop-blur-sm"
+                        >
+                            <TwitterIcon className="w-8 h-8 text-[var(--color-muted)] group-hover:text-[#1da1f2] transition-colors duration-300 mb-3" />
+                            <span className="font-semibold text-sm">Twitter</span>
+                            <span className="text-xs text-[var(--color-muted)] mt-1">@fitforge_ai</span>
+                        </a>
+
+                        <a
+                            href="https://youtube.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group flex flex-col items-center justify-center p-6 rounded-2xl bg-[var(--color-card)]/50 border border-[var(--color-border)] hover:border-[#ff0000]/40 hover:shadow-[0_0_20px_rgba(255,0,0,0.15)] transition-all duration-300 backdrop-blur-sm"
+                        >
+                            <YoutubeIcon className="w-8 h-8 text-[var(--color-muted)] group-hover:text-[#ff0000] transition-colors duration-300 mb-3" />
+                            <span className="font-semibold text-sm">YouTube</span>
+                            <span className="text-xs text-[var(--color-muted)] mt-1">FitForge AI</span>
+                        </a>
+
+                        <a
+                            href="https://github.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group flex flex-col items-center justify-center p-6 rounded-2xl bg-[var(--color-card)]/50 border border-[var(--color-border)] hover:border-[#6e5494]/40 hover:shadow-[0_0_20px_rgba(110,84,148,0.15)] transition-all duration-300 backdrop-blur-sm"
+                        >
+                            <GithubIcon className="w-8 h-8 text-[var(--color-muted)] group-hover:text-[#6e5494] transition-colors duration-300 mb-3" />
+                            <span className="font-semibold text-sm">GitHub</span>
+                            <span className="text-xs text-[var(--color-muted)] mt-1">fitforge-ai</span>
+                        </a>
+                    </div>
                 </div>
             </section>
 

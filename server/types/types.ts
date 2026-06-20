@@ -40,3 +40,31 @@ export interface TrainingPlan {
   version: number;
   createdAt: string;
 }
+
+export interface RawExercise {
+  name?: string;
+  sets?: number;
+  reps?: string | number;
+  rest?: string;
+  rpe?: number;
+  notes?: string;
+  alternatives?: string[];
+}
+
+export interface RawDaySchedule {
+  day?: string;
+  focus?: string;
+  exercises?: RawExercise[];
+}
+
+export interface RawPlanResponse {
+  overview?: {
+    goal?: string;
+    frequency?: string;
+    split?: string;
+    notes?: string;
+  };
+  weeklySchedule?: RawDaySchedule[];
+  progression?: string;
+}
+
